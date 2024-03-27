@@ -33,7 +33,7 @@ class AppHelper {
         return 'Jumat';
     }
 
-    public static function get_encrypt($request, $timestamp, $service_name, $url, $param = null)
+    public static function get_encrypt($request, $timestamp, $service_name, $url, $param = null, $count = 0)
     {
         $consid             = $request->header('x-consid');
         $key                = $request->header('x-conspwd');
@@ -42,9 +42,21 @@ class AppHelper {
         $signature          = hash_hmac('sha256', $data, $key, true);
         $encodedSignature   = base64_encode($signature);
 
+        if ($param)
+        {
+            $apiUrl = env('BPJS_API') . $service_name . '/' . $url;
+            for ($i = 0; $i < $count; $i++) { 
+                $apiUrl = $apiUrl . '/' . $param[$i];
+            }
+        }
+        else
+        {
+            $apiUrl = env('BPJS_API') . $service_name . '/' . $url;
+        }
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => ($param) ? env('BPJS_API') . $service_name . '/' . $url . '/' . $param : env('BPJS_API') . $service_name . '/' . $url,
+            CURLOPT_URL => $apiUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
