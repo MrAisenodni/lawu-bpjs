@@ -18,5 +18,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'bpjs'], function () use ($router) {
-    $router->get('decrypt/{key}/{string}', 'DecryptController@getDecrypt');
+    $router->get('decrypt', 'DecryptController@getDecrypt');
 });
