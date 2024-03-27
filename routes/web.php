@@ -19,14 +19,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'bpjs'], function () use ($router) {
-    $router->get('decrypt', 'SignatureController@getDecrypt');
-    $router->get('encrypt', 'SignatureController@getEncrypt');
-});
-
 $router->group(['prefix' => 'apotek'], function () use ($router) {
     $router->group(['prefix' => 'referensi'], function () use ($router) {
         $router->get('dpho', 'ApotekReferensiController@getDpho');
-        $router->get('poli/{id}', 'ApotekReferensiController@getPoli');
+        $router->get('poli/{param}', 'ApotekReferensiController@getPoli');
+        $router->get('setting/{param}', 'ApotekReferensiController@getSetting');
+        $router->get('spesialistik', 'ApotekReferensiController@getSpesialistik');
     });
 });

@@ -24,9 +24,23 @@ class ApotekReferensiController extends Controller
         return $response;
     }
 
-    public function getPoli($id, Request $request)
+    public function getPoli($param, Request $request)
     {
-        $response = $this->referensiService->getPoli($id, $request);
+        $response = $this->referensiService->getPoli($param, $request);
+
+        return $response;
+    }
+
+    public function getSetting($param, Request $request)
+    {
+        $response = $this->referensiService->getSetting($param, $request);
+
+        return $response;
+    }
+
+    public function getSpesialistik(Request $request)
+    {
+        $response = $this->referensiService->getSpesialistik($request);
 
         return $response;
     }
