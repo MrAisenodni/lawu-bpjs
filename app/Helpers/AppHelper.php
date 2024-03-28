@@ -80,32 +80,41 @@ class AppHelper {
 
     public static function get_decrypt($key, $string)
     {
-        // Check Response
+        // Check String
         if (json_decode($string))
         {
-            // Declare Variable
-            $encrypt_method = 'AES-256-CBC';
-            $string = json_decode($string)->response;
+            if (json_decode($string)->metaData->code == 200)
+            {
+                // Declare Variable
+                $encrypt_method = 'AES-256-CBC';
+                $string = json_decode($string)->response;
+    
+                // Hash the Key
+                $key_hash = hex2bin(hash('sha256', $key));
+                $string_hash = base64_decode($string);
+                
+                // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+                $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
+                
+                $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+                
+                // Decompress Using LZ String
+                $data = self::decompress($output);
+                
+                // Create Response
+                $response = [
+                    'key'           => $key,
+                    'data'          => json_decode($data),
+                ];
+                return self::response_json($response, 200, 'OK');
+            }
 
-            // Hash the Key
-            $key_hash = hex2bin(hash('sha256', $key));
-            $string_hash = base64_decode($string);
-            
-            // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-            $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
-            
-            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
-            
-            // Decompress Using LZ String
-            $data = self::decompress($output);
-            
             // Create Response
             $response = [
                 'key'           => $key,
-                'data'          => json_decode($data),
+                'data'          => null,
             ];
-        
-            return self::response_json($response, 200, 'OK');
+            return self::response_json($response, json_decode($string)->metaData->code, json_decode($string)->metaData->message);
         }
         return self::response_json(null, 400, $string);
     }

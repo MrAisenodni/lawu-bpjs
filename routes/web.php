@@ -41,4 +41,12 @@ $router->group(['prefix' => 'apotek'], function () use ($router) {
         $router->get('daftar/{param}', 'ApotekPelayananObatController@getDaftar');
         $router->get('riwayatobat/{param1}/{param2}/{param3}', 'ApotekPelayananObatController@getRiwayat');
     });
+
+    // SEP
+    $router->get('sep/{param}', 'ApotekSepController@getSep');
+
+    // Monitoring
+    $router->group(['prefix' => 'monitoring'], function () use ($router) {
+        $router->get('klaim/{param1}/{param2}/{param3}/{param4}', 'ApotekMonitoringController@getKlaim');
+    });
 });
