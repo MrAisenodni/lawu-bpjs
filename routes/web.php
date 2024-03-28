@@ -44,6 +44,32 @@ $router->group(['prefix' => 'vclaim'], function () use ($router) {
         $router->get('nokartu/{param1}/tglSEP/{param2}', 'VClaimPesertaController@getNoKartu');
         $router->get('nik/{param1}/tglSEP/{param2}', 'VClaimPesertaController@getNIK');
     });
+
+    // PRB Routes
+    $router->group(['prefix' => 'prb'], function () use ($router) {
+        $router->get('{param1}/nosep/{param2}', 'VClaimPRBController@getNoSRB');
+        $router->get('tglMulai/{param1}/tglAkhir/{param2}', 'VClaimPRBController@getTglSRB');
+    });
+
+    // Referensi Routes
+    $router->group(['prefix' => 'referensi'], function () use ($router) {
+        $router->get('diagnosa/{param}', 'VClaimReferensiController@getDiagnosa');
+        $router->get('poli/{param}', 'VClaimReferensiController@getPoli');
+        $router->get('faskes/{param1}/{param2}', 'VClaimReferensiController@getFaskes');
+        $router->get('dokter/pelayanan/{param1}/tglPelayanan/{param2}/Spesialis/{param3}', 'VClaimReferensiController@getDokterPelayanan');
+        $router->get('propinsi', 'VClaimReferensiController@getPropinsi');
+        $router->get('kabupaten/propinsi/{param}', 'VClaimReferensiController@getKabupaten');
+        $router->get('kecamatan/kabupaten/{param}', 'VClaimReferensiController@getKecamatan');
+        $router->get('diagnosaprb', 'VClaimReferensiController@getDiagnosaPRB');
+        $router->get('obatprb', 'VClaimReferensiController@getObatPRB');
+        $router->get('procedure', 'VClaimReferensiController@getProcedure');
+        $router->get('kelasrawat', 'VClaimReferensiController@getKelasRawat');
+        $router->get('dokter', 'VClaimReferensiController@getDokter');
+        $router->get('spesialistik', 'VClaimReferensiController@getSpesialistik');
+        $router->get('ruangrawat', 'VClaimReferensiController@getRuangRawat');
+        $router->get('carakeluar', 'VClaimReferensiController@getCaraKeluar');
+        $router->get('pascapulang', 'VClaimReferensiController@getPascaPulang');
+    });
 });
 
 // Apotek Routes
