@@ -25,6 +25,28 @@ $router->group(['prefix' => 'bpjs'], function () use ($router) {
 });
 
 // Apotek Routes
+$router->group(['prefix' => 'vclaim'], function () use ($router) {
+    // LPK Routes
+    $router->group(['prefix' => 'LPK'], function () use ($router) {
+        $router->get('TglMasuk/{param1}/JnsPelayanan/{param2}', 'VClaimLPKController@getLembarPengajuanKlaim');
+    });
+
+    // Monitoring Routes
+    $router->group(['prefix' => 'Monitoring'], function () use ($router) {
+        $router->get('Kunjungan/Tanggal/{param1}/JnsPelayanan/{param2}', 'VClaimMonitoringController@getKunjungan');
+        $router->get('Klaim/Tanggal/{param1}/JnsPelayanan/{param2}/Status/{param3}', 'VClaimMonitoringController@getKlaim');
+        $router->get('HistoriPelayanan/NoKartu/{param1}/tglMulai/{param2}/tglAkhir/{param3}', 'VClaimMonitoringController@getHistoriPelayanPeserta');
+        $router->get('JasaRaharja/JnsPelayanan/{param1}/tglMulai/{param2}/tglAkhir/{param3}', 'VClaimMonitoringController@getKlaimJaminanJasaRaharja');
+    });
+
+    // Peserta Routes
+    $router->group(['prefix' => 'Peserta'], function () use ($router) {
+        $router->get('nokartu/{param1}/tglSEP/{param2}', 'VClaimPesertaController@getNoKartu');
+        $router->get('nik/{param1}/tglSEP/{param2}', 'VClaimPesertaController@getNIK');
+    });
+});
+
+// Apotek Routes
 $router->group(['prefix' => 'apotek'], function () use ($router) {
     // Referensi Routes
     $router->group(['prefix' => 'referensi'], function () use ($router) {
@@ -42,10 +64,10 @@ $router->group(['prefix' => 'apotek'], function () use ($router) {
         $router->get('riwayatobat/{param1}/{param2}/{param3}', 'ApotekPelayananObatController@getRiwayat');
     });
 
-    // SEP
+    // SEP Routes
     $router->get('sep/{param}', 'ApotekSepController@getSep');
 
-    // Monitoring
+    // Monitoring Routes
     $router->group(['prefix' => 'monitoring'], function () use ($router) {
         $router->get('klaim/{param1}/{param2}/{param3}/{param4}', 'ApotekMonitoringController@getKlaim');
     });
