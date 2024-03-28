@@ -23,3 +23,11 @@ $router->group(['prefix' => 'bpjs'], function () use ($router) {
     $router->get('{serviceName}/{url}', 'GeneralController@getData');
     $router->get('{serviceName}/{url}/{param}', 'GeneralController@getByParam');
 });
+
+// Apotek Routes
+$router->group(['prefix' => 'apotek'], function () use ($router) {
+    $router->group(['prefix' => 'referensi'], function () use ($router) {
+        $router->get('dpho', 'ApotekReferensiController@getDpho');
+        $router->get('spesialistik', 'ApotekReferensiController@getSpesialistik');
+    });
+});

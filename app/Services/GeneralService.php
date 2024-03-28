@@ -23,8 +23,8 @@ class GeneralService
         $timestamp  = strtotime(date("Y-m-d H:i:s"));
         $key        = $request->header('x-consid') . $request->header('x-conspwd') . $timestamp;
         $url        = str_replace('|', '/', $url);
-        $param      = explode('|', $param);
-        $count      = count($param);
+        ($param) ? $param = explode('|', $param) : $param;
+        ($param) ? $count = count($param) : $count = 0;
 
         // Request Data to BPJS
         ($param) 
