@@ -28,6 +28,10 @@ $router->group(['prefix' => 'bpjs'], function () use ($router) {
 $router->group(['prefix' => 'apotek'], function () use ($router) {
     $router->group(['prefix' => 'referensi'], function () use ($router) {
         $router->get('dpho', 'ApotekReferensiController@getDpho');
+        $router->get('poli/{param}', 'ApotekReferensiController@getPoli');
+        $router->get('ppk/{param1}/{param2}', 'ApotekReferensiController@getFasilitasKesehatan');
+        $router->get('setting/{param}', 'ApotekReferensiController@getSetting');
         $router->get('spesialistik', 'ApotekReferensiController@getSpesialistik');
+        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@getObat');
     });
 });
