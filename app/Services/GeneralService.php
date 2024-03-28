@@ -32,8 +32,8 @@ class GeneralService
             : $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url);
 
         // Decrypt the Response from BPJS
-        $string = json_decode($response)->response;
-        $json = AppHelper::get_decrypt($key, $string);
+        $string = $response;
+        $json   = AppHelper::get_decrypt($key, $string);
 
         return $json;
     }
@@ -61,8 +61,8 @@ class GeneralService
             : $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url);
 
         // Decrypt the Response from BPJS
-        $string = json_decode($response)->response;
-        $json = AppHelper::get_decrypt($key, $string);
+        $string = $response;
+        $json   = AppHelper::get_decrypt($key, $string);
 
         return $json;
     }

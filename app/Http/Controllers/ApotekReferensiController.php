@@ -59,7 +59,7 @@ class ApotekReferensiController extends Controller
     public function getObat($param1, $param2, $param3, Request $request)
     {
         $param = array($param1, $param2, $param3);
-        $response = $this->generalService->getDataV2($this->serviceName, 'referensi/ppk', $param, $request);
+        $response = $this->generalService->getDataV2($this->serviceName, 'referensi/obat', $param, $request);
 
         return $response;
     }

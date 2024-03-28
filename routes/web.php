@@ -26,6 +26,7 @@ $router->group(['prefix' => 'bpjs'], function () use ($router) {
 
 // Apotek Routes
 $router->group(['prefix' => 'apotek'], function () use ($router) {
+    // Referensi Routes
     $router->group(['prefix' => 'referensi'], function () use ($router) {
         $router->get('dpho', 'ApotekReferensiController@getDpho');
         $router->get('poli/{param}', 'ApotekReferensiController@getPoli');
@@ -33,5 +34,11 @@ $router->group(['prefix' => 'apotek'], function () use ($router) {
         $router->get('setting/{param}', 'ApotekReferensiController@getSetting');
         $router->get('spesialistik', 'ApotekReferensiController@getSpesialistik');
         $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@getObat');
+    });
+
+    // Pelayanan Obat Routes
+    $router->group(['prefix' => 'pelayanan-obat'], function () use ($router) {
+        $router->get('daftar/{param}', 'ApotekPelayananObatController@getDaftar');
+        $router->get('riwayatobat/{param1}/{param2}/{param3}', 'ApotekPelayananObatController@getRiwayat');
     });
 });
