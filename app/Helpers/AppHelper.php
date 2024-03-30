@@ -33,7 +33,7 @@ class AppHelper {
         return 'Jumat';
     }
 
-    public static function get_encrypt($request, $timestamp, $service_name, $url, $param = null, $count = 0)
+    public static function get_encrypt($request, $timestamp, $service_name, $url, $param = null, $count = 0, $content_type = 'application/json; charset=utf-8')
     {
         $consid             = $request->header('x-consid');
         $key                = $request->header('x-conspwd');
@@ -41,6 +41,7 @@ class AppHelper {
         $data               = $request->header('x-consid')."&".$timestamp;
         $signature          = hash_hmac('sha256', $data, $key, true);
         $encodedSignature   = base64_encode($signature);
+        $contentType        = $content_type;
 
         if ($param)
         {
@@ -69,7 +70,7 @@ class AppHelper {
                 'x-timestamp: '.$timestamp,
                 'x-signature: '.$encodedSignature,
                 'user_key: '.$userkey,
-                'Content-Type: application/json; charset=utf-8',
+                'Content-Type: '.$contentType,
             ),
         ));
         $response = curl_exec($curl);

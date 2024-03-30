@@ -61,14 +61,20 @@ $router->group(['prefix' => 'vclaim'], function () use ($router) {
         $router->get('kabupaten/propinsi/{param}', 'VClaimReferensiController@getKabupaten');
         $router->get('kecamatan/kabupaten/{param}', 'VClaimReferensiController@getKecamatan');
         $router->get('diagnosaprb', 'VClaimReferensiController@getDiagnosaPRB');
-        $router->get('obatprb', 'VClaimReferensiController@getObatPRB');
-        $router->get('procedure', 'VClaimReferensiController@getProcedure');
+        $router->get('obatprb/{param}', 'VClaimReferensiController@getObatPRB');
+        $router->get('procedure/{param}', 'VClaimReferensiController@getProcedure');
         $router->get('kelasrawat', 'VClaimReferensiController@getKelasRawat');
         $router->get('dokter', 'VClaimReferensiController@getDokter');
         $router->get('spesialistik', 'VClaimReferensiController@getSpesialistik');
         $router->get('ruangrawat', 'VClaimReferensiController@getRuangRawat');
         $router->get('carakeluar', 'VClaimReferensiController@getCaraKeluar');
         $router->get('pascapulang', 'VClaimReferensiController@getPascaPulang');
+    });
+
+    // Rencana Kontrol Routes
+    $router->group(['prefix' => 'RencanaKontrol'], function () use ($router) {
+        $router->get('nosep/{param}', 'VClaimRencanaKontrolController@getCariSEP');
+        $router->get('noSuratKontrol/{param}', 'VClaimRencanaKontrolController@getCariNoSuratKontrol');
     });
 });
 

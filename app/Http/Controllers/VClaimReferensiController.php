@@ -57,7 +57,7 @@ class VClaimReferensiController extends Controller
         return $response;
     }
 
-    public function geKabupaten($param, Request $request)
+    public function getKabupaten($param, Request $request)
     {
         $param = array($param);
         $response = $this->generalService->getDataV2($this->serviceName, 'referensi/kabupaten/propinsi', $param, $request);
@@ -65,7 +65,7 @@ class VClaimReferensiController extends Controller
         return $response;
     }
 
-    public function geKecamatan($param, Request $request)
+    public function getKecamatan($param, Request $request)
     {
         $param = array($param);
         $response = $this->generalService->getDataV2($this->serviceName, 'referensi/kecamatan/kabupaten', $param, $request);
@@ -114,6 +114,13 @@ class VClaimReferensiController extends Controller
     public function getSpesialistik(Request $request)
     {
         $response = $this->generalService->getDataV2($this->serviceName, 'referensi/spesialistik', null, $request);
+
+        return $response;
+    }
+
+    public function getRuangRawat(Request $request)
+    {
+        $response = $this->generalService->getDataV2($this->serviceName, 'referensi/carakeluar', null, $request);
 
         return $response;
     }

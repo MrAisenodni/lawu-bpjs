@@ -43,7 +43,7 @@ class GeneralService
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDataV2($serviceName, $url, $param, $request)
+    public function getDataV2($serviceName, $url, $param, $request, $contentType = 'application/json; charset=utf-8')
     {
         // Validate the Request Header
         if(!$request->header('x-consid')) return AppHelper::response_json(null, 400, 'Consumer ID tidak boleh kosong.');
@@ -57,8 +57,8 @@ class GeneralService
 
         // Request Data to BPJS
         ($param) 
-            ? $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url, $param, $count)
-            : $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url);
+            ? $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url, $param, $count, $contentType)
+            : $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url, null, 0, $contentType);
 
         // Decrypt the Response from BPJS
         $string = $response;
