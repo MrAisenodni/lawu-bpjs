@@ -80,6 +80,8 @@ class AppHelper {
         // Check String
         if (json_decode($string))
         {
+            if (strlen(json_decode($string)->metaData->code) > 3) return self::response_json(null, 400, json_decode($string)->metaData->code);
+
             if (json_decode($string)->metaData->code == 200)
             {
                 // Declare Variable
