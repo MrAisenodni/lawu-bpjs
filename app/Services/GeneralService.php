@@ -39,11 +39,11 @@ class GeneralService
     }
 
     /**
-     * Get All Data from BPJS
+     * API Services for BPJS
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDataV2($url, $request, $contentType = 'application/json; charset=utf-8')
+    public function apiData($url, $request, $method, $contentType = 'Application/x-www-form-urlencoded', )
     {
         // Validate the Request Header
         if(!$request->header('x-consid')) return AppHelper::response_json(null, 400, 'Consumer ID tidak boleh kosong.');
@@ -53,34 +53,6 @@ class GeneralService
         // Declare Variable
         $timestamp  = strtotime(date("Y-m-d H:i:s"));
         $key        = $request->header('x-consid') . $request->header('x-conspwd') . $timestamp;
-        $method     = 'GET';
-
-        // Request Data to BPJS
-        $response = AppHelper::api_encrypt($request, $timestamp, $url, $contentType, $method);
-
-        // Decrypt the Response from BPJS
-        $string = $response;
-        $json   = AppHelper::get_decrypt($key, $string);
-
-        return $json;
-    }
-
-    /**
-     * Insert Data to BPJS
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function postDataV2($url, $request, $contentType = 'Application/x-www-form-urlencoded')
-    {
-        // Validate the Request Header
-        if(!$request->header('x-consid')) return AppHelper::response_json(null, 400, 'Consumer ID tidak boleh kosong.');
-        if(!$request->header('x-conspwd')) return AppHelper::response_json(null, 400, 'Consumer Password tidak boleh kosong.');
-        if(!$request->header('x-userkey')) return AppHelper::response_json(null, 400, 'User Secret tidak boleh kosong.');
-
-        // Declare Variable
-        $timestamp  = strtotime(date("Y-m-d H:i:s"));
-        $key        = $request->header('x-consid') . $request->header('x-conspwd') . $timestamp;
-        $method     = 'POST';
 
         // Request Data to BPJS
         $response = AppHelper::api_encrypt($request, $timestamp, $url, $contentType, $method);

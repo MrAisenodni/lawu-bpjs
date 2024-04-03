@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\GeneralService;
 use Illuminate\Http\Request;
 
-class ApotekObatController extends Controller
+class ApotekController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -16,13 +16,13 @@ class ApotekObatController extends Controller
     {
         $this->generalService   = $generalService;
         $this->serviceName      = 'apotek-rest-dev';
+        $this->hostName         = env('APP_URL').'/apotek';
     }
 
-    public function postNonRacikan(Request $request)
+    public function apiData(Request $request)
     {
-        $url = str_replace($this->serviceName, 'apotek', $request->url());
-        dd($url, $request->url());
-        $response = $this->generalService->postDataV2($this->serviceName, 'SEP/2.0/insert', null, $request, 'Application/x-www-form-urlencoded');
+        $url = str_replace($this->hostName, $this->serviceName, $request->url());
+        $response = $this->generalService->apiData($url, $request, $request->method());
 
         return $response;
     }

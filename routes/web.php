@@ -20,7 +20,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'bpjs'], function () use ($router) {
-    $router->get('{serviceName}/{url}', 'GeneralController@getData');
+    $router->get('{serviceName}/{url}', 'GeneralController@apiData');
     $router->get('{serviceName}/{url}/{param}', 'GeneralController@getByParam');
 });
 
@@ -88,29 +88,33 @@ $router->group(['prefix' => 'vclaim'], function () use ($router) {
 $router->group(['prefix' => 'apotek'], function () use ($router) {
     // Referensi Routes
     $router->group(['prefix' => 'referensi'], function () use ($router) {
-        $router->get('dpho', 'ApotekReferensiController@getData');
-        $router->get('poli/{param}', 'ApotekReferensiController@getData');
-        $router->get('ppk/{param1}/{param2}', 'ApotekReferensiController@getData');
-        $router->get('settingppk/read/{param}', 'ApotekReferensiController@getData');
-        $router->get('spesialistik', 'ApotekReferensiController@getData');
-        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@getData');
+        $router->get('dpho', 'ApotekReferensiController@apiData');
+        $router->get('poli/{param}', 'ApotekReferensiController@apiData');
+        $router->get('ppk/{param1}/{param2}', 'ApotekReferensiController@apiData');
+        $router->get('settingppk/read/{param}', 'ApotekReferensiController@apiData');
+        $router->get('spesialistik', 'ApotekReferensiController@apiData');
+        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@apiData');
     });
 
     // Obat Routes
-    $router->post('obatnonracikan/v3/insert', 'ApotekObatController@postNonRacikan');
-    $router->post('obatracikan/v3/insert', 'ApotekObatController@postRacikan');
+    $router->post('obatnonracikan/v3/insert', 'ApotekController@apiData');
+    $router->post('obatracikan/v3/insert', 'ApotekController@apiData');
 
     // Pelayanan Obat Routes
-    $router->group(['prefix' => 'pelayanan-obat'], function () use ($router) {
-        $router->get('daftar/{param}', 'ApotekPelayananObatController@getDaftar');
-        $router->get('riwayatobat/{param1}/{param2}/{param3}', 'ApotekPelayananObatController@getRiwayat');
-    });
+    $router->delete('pelayanan/obat/hapus', 'ApotekController@apiData');
+    $router->get('obat/daftar/{param}', 'ApotekController@apiData');
+    $router->get('riwayatobat/{param1}/{param2}/{param3}', 'ApotekController@apiData');
+    
+    // Resep Routes
+    $router->post('sjpresep/v3/insert', 'ApotekController@apiData');
+    $router->delete('hapusresep', 'ApotekController@apiData');
+    $router->get('daftarresep', 'ApotekController@apiData');
 
     // SEP Routes
-    $router->get('sep/{param}', 'ApotekSepController@getSep');
+    $router->get('sep/{param}', 'ApotekController@apiData');
 
     // Monitoring Routes
     $router->group(['prefix' => 'monitoring'], function () use ($router) {
-        $router->get('klaim/{param1}/{param2}/{param3}/{param4}', 'ApotekMonitoringController@getKlaim');
+        $router->get('klaim/{param1}/{param2}/{param3}/{param4}', 'ApotekController@apiData');
     });
 });
