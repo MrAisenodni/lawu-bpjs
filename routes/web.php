@@ -28,59 +28,144 @@ $router->group(['prefix' => 'bpjs'], function () use ($router) {
 $router->group(['prefix' => 'vclaim'], function () use ($router) {
     // LPK Routes
     $router->group(['prefix' => 'LPK'], function () use ($router) {
-        $router->get('TglMasuk/{param1}/JnsPelayanan/{param2}', 'VClaimLPKController@getLembarPengajuanKlaim');
+        $router->post('insert', 'VClaimController@apiData');
+        $router->put('update', 'VClaimController@apiData');
+        $router->delete('delete', 'VClaimController@apiData');
+        $router->get('TglMasuk/{param1}/JnsPelayanan/{param2}', 'VClaimController@apiData');
     });
 
     // Monitoring Routes
     $router->group(['prefix' => 'Monitoring'], function () use ($router) {
-        $router->get('Kunjungan/Tanggal/{param1}/JnsPelayanan/{param2}', 'VClaimMonitoringController@getKunjungan');
-        $router->get('Klaim/Tanggal/{param1}/JnsPelayanan/{param2}/Status/{param3}', 'VClaimMonitoringController@getKlaim');
-        $router->get('HistoriPelayanan/NoKartu/{param1}/tglMulai/{param2}/tglAkhir/{param3}', 'VClaimMonitoringController@getHistoriPelayanPeserta');
-        $router->get('JasaRaharja/JnsPelayanan/{param1}/tglMulai/{param2}/tglAkhir/{param3}', 'VClaimMonitoringController@getKlaimJaminanJasaRaharja');
+        $router->get('Kunjungan/Tanggal/{param1}/JnsPelayanan/{param2}', 'VClaimController@apiData');
+        $router->get('Klaim/Tanggal/{param1}/JnsPelayanan/{param2}/Status/{param3}', 'VClaimController@apiData');
+        $router->get('HistoriPelayanan/NoKartu/{param1}/tglMulai/{param2}/tglAkhir/{param3}', 'VClaimController@apiData');
+        $router->get('JasaRaharja/JnsPelayanan/{param1}/tglMulai/{param2}/tglAkhir/{param3}', 'VClaimController@apiData');
     });
 
     // Peserta Routes
     $router->group(['prefix' => 'Peserta'], function () use ($router) {
-        $router->get('nokartu/{param1}/tglSEP/{param2}', 'VClaimPesertaController@getNoKartu');
-        $router->get('nik/{param1}/tglSEP/{param2}', 'VClaimPesertaController@getNIK');
+        $router->get('nokartu/{param1}/tglSEP/{param2}', 'VClaimController@apiData');
+        $router->get('nik/{param1}/tglSEP/{param2}', 'VClaimController@apiData');
     });
 
     // PRB Routes
+    $router->group(['prefix' => 'PRB'], function () use ($router) {
+        $router->post('insert', 'VClaimController@apiData');
+        $router->put('update', 'VClaimController@apiData');
+        $router->delete('delete', 'VClaimController@apiData');
+    });
     $router->group(['prefix' => 'prb'], function () use ($router) {
-        $router->get('{param1}/nosep/{param2}', 'VClaimPRBController@getNoSRB');
-        $router->get('tglMulai/{param1}/tglAkhir/{param2}', 'VClaimPRBController@getTglSRB');
+        $router->get('{param1}/nosep/{param2}', 'VClaimController@apiData');
+        $router->get('tglMulai/{param1}/tglAkhir/{param2}', 'VClaimController@apiData');
     });
 
     // Referensi Routes
     $router->group(['prefix' => 'referensi'], function () use ($router) {
-        $router->get('diagnosa/{param}', 'VClaimReferensiController@getDiagnosa');
-        $router->get('poli/{param}', 'VClaimReferensiController@getPoli');
-        $router->get('faskes/{param1}/{param2}', 'VClaimReferensiController@getFaskes');
-        $router->get('dokter/pelayanan/{param1}/tglPelayanan/{param2}/Spesialis/{param3}', 'VClaimReferensiController@getDokterPelayanan');
-        $router->get('propinsi', 'VClaimReferensiController@getPropinsi');
-        $router->get('kabupaten/propinsi/{param}', 'VClaimReferensiController@getKabupaten');
-        $router->get('kecamatan/kabupaten/{param}', 'VClaimReferensiController@getKecamatan');
-        $router->get('diagnosaprb', 'VClaimReferensiController@getDiagnosaPRB');
-        $router->get('obatprb/{param}', 'VClaimReferensiController@getObatPRB');
-        $router->get('procedure/{param}', 'VClaimReferensiController@getProcedure');
-        $router->get('kelasrawat', 'VClaimReferensiController@getKelasRawat');
-        $router->get('dokter', 'VClaimReferensiController@getDokter');
-        $router->get('spesialistik', 'VClaimReferensiController@getSpesialistik');
-        $router->get('ruangrawat', 'VClaimReferensiController@getRuangRawat');
-        $router->get('carakeluar', 'VClaimReferensiController@getCaraKeluar');
-        $router->get('pascapulang', 'VClaimReferensiController@getPascaPulang');
+        $router->get('diagnosa/{param}', 'VClaimController@apiData');
+        $router->get('poli/{param}', 'VClaimController@apiData');
+        $router->get('faskes/{param1}/{param2}', 'VClaimController@apiData');
+        $router->get('dokter/pelayanan/{param1}/tglPelayanan/{param2}/Spesialis/{param3}', 'VClaimController@apiData');
+        $router->get('propinsi', 'VClaimController@apiData');
+        $router->get('kabupaten/propinsi/{param}', 'VClaimController@apiData');
+        $router->get('kecamatan/kabupaten/{param}', 'VClaimController@apiData');
+        $router->get('diagnosaprb', 'VClaimController@apiData');
+        $router->get('obatprb/{param}', 'VClaimController@apiData');
+        $router->get('procedure/{param}', 'VClaimController@apiData');
+        $router->get('kelasrawat', 'VClaimController@apiData');
+        $router->get('dokter', 'VClaimController@apiData');
+        $router->get('spesialistik', 'VClaimController@apiData');
+        $router->get('ruangrawat', 'VClaimController@apiData');
+        $router->get('carakeluar', 'VClaimController@apiData');
+        $router->get('pascapulang', 'VClaimController@apiData');
     });
 
     // Rencana Kontrol Routes
     $router->group(['prefix' => 'RencanaKontrol'], function () use ($router) {
-        $router->get('nosep/{param}', 'VClaimRencanaKontrolController@getCariSEP');
-        $router->get('noSuratKontrol/{param}', 'VClaimRencanaKontrolController@getCariNoSuratKontrol');
+        $router->post('insert', 'VClaimController@apiData');
+        $router->put('update', 'VClaimController@apiData');
+        $router->delete('delete', 'VClaimController@apiData');
+        $router->post('InsertSPRI', 'VClaimController@apiData');
+        $router->put('UpdateSPRI', 'VClaimController@apiData');
+        $router->get('nosep/{param}', 'VClaimController@apiData');
+        $router->get('noSuratKontrol/{param}', 'VClaimController@apiData');
+        $router->get('ListRencanaKontrol/Bulan/{param1}/Tahun/{param2}/Nokartu/{param3}/filter/{param4}', 'VClaimController@apiData');
+        $router->get('ListRencanaKontrol/tglAwal/{param1}/tglAkhir/{param2}/filter/{param3}', 'VClaimController@apiData');
+        $router->get('JadwalPraktekDokter/JnsKontrol/{param1}/KdPoli/{param2}/TglRencanaKontrol/{param3}', 'VClaimController@apiData');
     });
 
-    // SEP
+    // Rujukan Routes
+    $router->group(['prefix' => 'Rujukan'], function () use ($router) {
+        $router->get('{param}', 'VClaimController@apiData');
+        $router->get('RS/{param}', 'VClaimController@apiData');
+        $router->get('Peserta/{param}', 'VClaimController@apiData');
+        $router->get('RS/Peserta/{param}', 'VClaimController@apiData');
+        $router->get('List/Peserta/{param}', 'VClaimController@apiData');
+        $router->get('RS/List/Peserta/{param}', 'VClaimController@apiData');
+        $router->post('insert', 'VClaimController@apiData');
+        $router->put('update', 'VClaimController@apiData');
+        $router->delete('delete', 'VClaimController@apiData');
+
+        // Rujukan Khusus Routes
+        $router->group(['prefix' => 'Khusus'], function () use ($router) {
+            $router->post('insert', 'VClaimController@apiData');
+            $router->delete('delete', 'VClaimController@apiData');
+            $router->delete('List/Bulan/{param1}/Tahun/{param2}', 'VClaimController@apiData');
+        });
+
+        $router->post('20/insert', 'VClaimController@apiData');
+        $router->put('20/update', 'VClaimController@apiData');
+        $router->get('ListSpesialistik/PPKRujukan/{param1}/TglRujukan/{param2}', 'VClaimController@apiData');
+        $router->get('ListSarana/PPKRujukan/{param1}', 'VClaimController@apiData');
+        $router->get('Keluar/List/tglMulai/{param1}/tglAkhir/{param2}', 'VClaimController@apiData');
+        $router->get('Keluar/{param1}', 'VClaimController@apiData');
+        $router->get('JumlahSEP/{param1}/{param2}', 'VClaimController@apiData');
+    });
+
+    // SEP Routes
     $router->group(['prefix' => 'SEP'], function () use ($router) {
-        $router->get('{param}', 'VClaimSEPController@getCariSEP');
-        $router->post('20/insert', 'VClaimSEPController@insertSEP2');
+        // Pembuatan SEP Routes
+        $router->post('11/insert', 'VClaimController@apiData');
+        $router->put('11/update', 'VClaimController@apiData');
+        $router->delete('11/delete', 'VClaimController@apiData');
+        $router->get('{param}', 'VClaimController@apiData');
+        $router->post('20/insert', 'VClaimController@apiData');
+        $router->put('20/update', 'VClaimController@apiData');
+        $router->delete('20/delete', 'VClaimController@apiData');
+        
+        // SEP Internal Routes
+        $router->group(['prefix' => 'Internal'], function () use ($router) {
+            $router->get('{param1}', 'VClaimController@apiData');
+            $router->delete('delete', 'VClaimController@apiData');
+        });
+
+        // Finger Print Routes
+        $router->group(['prefix' => 'FingerPrint'], function () use ($router) {
+            $router->get('Peserta/{param1}/TglPelayanan/{param2}', 'VClaimController@apiData');
+            $router->get('List/Peserta/TglPelayanan/{param}', 'VClaimController@apiData');
+
+            // Random Question Routes
+            $router->get('randomquestion/faskesterdaftar/nokapst/{param1}/tglsep/{param2}', 'VClaimController@apiData');
+            $router->post('randomanswer', 'VClaimController@apiData');
+        });
+    });
+    $router->group(['prefix' => 'sep'], function () use ($router) {
+        // Potensi Suplesi Jasa Raharja Routes
+        $router->get('JasaRaharja/Suplesi/{param1}/tglPelayanan/{param2}', 'VClaimController@apiData');
+        $router->get('KllInduk/List/{param1}', 'VClaimController@apiData');
+
+        // Integrasi SEP dan Inacbg Routes
+        $router->get('cbg/{param}', 'VClaimController@apiData');
+    });
+    $router->group(['prefix' => 'Sep'], function () use ($router) {
+        // Approval Penjaminan SEP Routes
+        $router->post('pengajuanSEP', 'VClaimController@apiData');
+        $router->post('aprovalSEP', 'VClaimController@apiData');
+        $router->get('persetujuanSEP/list/bulan/{param1}/tahun/{param2}', 'VClaimController@apiData');
+
+        // Update Tgl Pulang SEP Routes
+        $router->put('updtglplg', 'VClaimController@apiData');
+        $router->put('20/updtglplg', 'VClaimController@apiData');
+        $router->get('updtglplg/list/bulan/{param1}/tahun/{param2}/{param3}', 'VClaimController@apiData');
     });
 });
 

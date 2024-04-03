@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\GeneralService;
 use Illuminate\Http\Request;
 
-class ApotekController extends Controller
+class VClaimController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,8 +15,8 @@ class ApotekController extends Controller
     public function __construct(GeneralService $generalService)
     {
         $this->generalService   = $generalService;
-        $this->serviceName      = 'apotek-rest-dev';
-        $this->hostName         = env('APP_URL').'/apotek';
+        $this->serviceName      = 'vclaim-rest-dev';
+        $this->hostName         = env('APP_URL').'/vclaim';
     }
 
     public function apiData(Request $request)
