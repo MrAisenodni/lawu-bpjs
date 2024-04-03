@@ -43,7 +43,7 @@ class GeneralService
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function apiData($url, $request, $method, $contentType = 'Application/x-www-form-urlencoded', )
+    public function apiData($url, $request, $method, $contentType = 'Application/x-www-form-urlencoded')
     {
         // Validate the Request Header
         if(!$request->header('x-consid')) return AppHelper::response_json(null, 400, 'Consumer ID tidak boleh kosong.');
