@@ -173,12 +173,12 @@ $router->group(['prefix' => 'vclaim'], function () use ($router) {
 $router->group(['prefix' => 'apotek'], function () use ($router) {
     // Referensi Routes
     $router->group(['prefix' => 'referensi'], function () use ($router) {
-        $router->get('dpho', 'ApotekReferensiController@apiData');
-        $router->get('poli/{param}', 'ApotekReferensiController@apiData');
-        $router->get('ppk/{param1}/{param2}', 'ApotekReferensiController@apiData');
-        $router->get('settingppk/read/{param}', 'ApotekReferensiController@apiData');
-        $router->get('spesialistik', 'ApotekReferensiController@apiData');
-        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@apiData');
+        $router->get('dpho', 'ApotekController@apiData');
+        $router->get('poli/{param}', 'ApotekController@apiData');
+        $router->get('ppk/{param1}/{param2}', 'ApotekController@apiData');
+        $router->get('settingppk/read/{param}', 'ApotekController@apiData');
+        $router->get('spesialistik', 'ApotekController@apiData');
+        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekController@apiData');
     });
 
     // Obat Routes
