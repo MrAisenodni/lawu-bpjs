@@ -76,6 +76,12 @@ $router->group(['prefix' => 'vclaim'], function () use ($router) {
         $router->get('nosep/{param}', 'VClaimRencanaKontrolController@getCariSEP');
         $router->get('noSuratKontrol/{param}', 'VClaimRencanaKontrolController@getCariNoSuratKontrol');
     });
+
+    // SEP
+    $router->group(['prefix' => 'SEP'], function () use ($router) {
+        $router->get('{param}', 'VClaimSEPController@getCariSEP');
+        $router->post('20/insert', 'VClaimSEPController@insertSEP2');
+    });
 });
 
 // Apotek Routes

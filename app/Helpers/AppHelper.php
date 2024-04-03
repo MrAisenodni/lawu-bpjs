@@ -33,7 +33,7 @@ class AppHelper {
         return 'Jumat';
     }
 
-    public static function get_encrypt($request, $timestamp, $service_name, $url, $param = null, $count = 0, $content_type = 'application/json; charset=utf-8')
+    public static function get_encrypt($request, $timestamp, $service_name, $url, $param = null, $count = 0, $content_type)
     {
         $consid             = $request->header('x-consid');
         $key                = $request->header('x-conspwd');
@@ -65,6 +65,54 @@ class AppHelper {
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'x-cons-id: '.$consid,
+                'x-timestamp: '.$timestamp,
+                'x-signature: '.$encodedSignature,
+                'user_key: '.$userkey,
+                'Content-Type: '.$contentType,
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return $response;
+    }
+
+    public static function post_encrypt($request, $timestamp, $service_name, $url, $param = null, $count = 0, $content_type)
+    {
+        $consid             = $request->header('x-consid');
+        $key                = $request->header('x-conspwd');
+        $userkey            = $request->header('x-userkey');
+        $data               = $request->header('x-consid')."&".$timestamp;
+        $insert             = json_encode($request->all());
+        $signature          = hash_hmac('sha256', $data, $key, true);
+        $encodedSignature   = base64_encode($signature);
+        $contentType        = $content_type;
+
+        if ($param)
+        {
+            $apiUrl = env('BPJS_API') . $service_name . '/' . $url;
+            for ($i = 0; $i < $count; $i++) { 
+                $apiUrl = $apiUrl . '/' . $param[$i];
+            }
+        }
+        else
+        {
+            $apiUrl = env('BPJS_API') . $service_name . '/' . $url;
+        }
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $apiUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $insert,
             CURLOPT_HTTPHEADER => array(
                 'x-cons-id: '.$consid,
                 'x-timestamp: '.$timestamp,
