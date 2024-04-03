@@ -43,7 +43,7 @@ class GeneralService
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getDataV2($serviceName, $url, $param, $request, $contentType = 'application/json; charset=utf-8')
+    public function getDataV2($url, $request, $contentType = 'application/json; charset=utf-8')
     {
         // Validate the Request Header
         if(!$request->header('x-consid')) return AppHelper::response_json(null, 400, 'Consumer ID tidak boleh kosong.');
@@ -53,12 +53,10 @@ class GeneralService
         // Declare Variable
         $timestamp  = strtotime(date("Y-m-d H:i:s"));
         $key        = $request->header('x-consid') . $request->header('x-conspwd') . $timestamp;
-        ($param) ? $count = count($param) : $count = 0;
+        $method     = 'GET';
 
         // Request Data to BPJS
-        ($param) 
-            ? $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url, $param, $count, $contentType)
-            : $response = AppHelper::get_encrypt($request, $timestamp, $serviceName, $url, null, 0, $contentType);
+        $response = AppHelper::api_encrypt($request, $timestamp, $url, $contentType, $method);
 
         // Decrypt the Response from BPJS
         $string = $response;
@@ -72,7 +70,7 @@ class GeneralService
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function postDataV2($serviceName, $url, $param, $request, $contentType = 'Application/x-www-form-urlencoded')
+    public function postDataV2($url, $request, $contentType = 'Application/x-www-form-urlencoded')
     {
         // Validate the Request Header
         if(!$request->header('x-consid')) return AppHelper::response_json(null, 400, 'Consumer ID tidak boleh kosong.');
@@ -82,12 +80,10 @@ class GeneralService
         // Declare Variable
         $timestamp  = strtotime(date("Y-m-d H:i:s"));
         $key        = $request->header('x-consid') . $request->header('x-conspwd') . $timestamp;
-        ($param) ? $count = count($param) : $count = 0;
+        $method     = 'POST';
 
         // Request Data to BPJS
-        ($param) 
-            ? $response = AppHelper::post_encrypt($request, $timestamp, $serviceName, $url, $param, $count, $contentType)
-            : $response = AppHelper::post_encrypt($request, $timestamp, $serviceName, $url, null, 0, $contentType);
+        $response = AppHelper::api_encrypt($request, $timestamp, $url, $contentType, $method);
 
         // Decrypt the Response from BPJS
         $string = $response;

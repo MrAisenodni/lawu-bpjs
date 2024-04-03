@@ -14,8 +14,17 @@ class ApotekReferensiController extends Controller
      */
     public function __construct(GeneralService $generalService)
     {
-        $this->generalService = $generalService;
-        $this->serviceName = 'apotek-rest-dev';
+        $this->generalService   = $generalService;
+        $this->serviceName      = 'apotek-rest-dev';
+        $this->hostName         = env('APP_URL').'/apotek';
+    }
+
+    public function getData(Request $request)
+    {
+        $url = str_replace($this->hostName, $this->serviceName, $request->url());
+        $response = $this->generalService->getDataV2($url, $request);
+
+        return $response;
     }
 
     public function getDpho(Request $request)
@@ -25,10 +34,10 @@ class ApotekReferensiController extends Controller
         return $response;
     }
 
-    public function getPoli($param, Request $request)
+    public function getPoli(Request $request)
     {
-        $param = array($param);
-        $response = $this->generalService->getDataV2($this->serviceName, 'referensi/poli', $param, $request);
+        $url = str_replace($this->hostName, $this->serviceName, $request->url());
+        $response = $this->generalService->getDataV2($url, $request);
 
         return $response;
     }

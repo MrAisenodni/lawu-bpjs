@@ -88,13 +88,17 @@ $router->group(['prefix' => 'vclaim'], function () use ($router) {
 $router->group(['prefix' => 'apotek'], function () use ($router) {
     // Referensi Routes
     $router->group(['prefix' => 'referensi'], function () use ($router) {
-        $router->get('dpho', 'ApotekReferensiController@getDpho');
-        $router->get('poli/{param}', 'ApotekReferensiController@getPoli');
-        $router->get('ppk/{param1}/{param2}', 'ApotekReferensiController@getFasilitasKesehatan');
-        $router->get('setting/{param}', 'ApotekReferensiController@getSetting');
-        $router->get('spesialistik', 'ApotekReferensiController@getSpesialistik');
-        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@getObat');
+        $router->get('dpho', 'ApotekReferensiController@getData');
+        $router->get('poli/{param}', 'ApotekReferensiController@getData');
+        $router->get('ppk/{param1}/{param2}', 'ApotekReferensiController@getData');
+        $router->get('settingppk/read/{param}', 'ApotekReferensiController@getData');
+        $router->get('spesialistik', 'ApotekReferensiController@getData');
+        $router->get('obat/{param1}/{param2}/{param3}', 'ApotekReferensiController@getData');
     });
+
+    // Obat Routes
+    $router->post('obatnonracikan/v3/insert', 'ApotekObatController@postNonRacikan');
+    $router->post('obatracikan/v3/insert', 'ApotekObatController@postRacikan');
 
     // Pelayanan Obat Routes
     $router->group(['prefix' => 'pelayanan-obat'], function () use ($router) {
