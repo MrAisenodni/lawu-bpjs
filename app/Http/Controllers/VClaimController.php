@@ -15,13 +15,11 @@ class VClaimController extends Controller
     public function __construct(GeneralService $generalService)
     {
         $this->generalService   = $generalService;
-        $this->serviceName      = 'vclaim-rest-dev';
-        $this->hostName         = env('APP_URL').'/vclaim';
     }
 
     public function apiData(Request $request)
     {
-        $url = str_replace($this->hostName, $this->serviceName, $request->url());
+        $url = env('BPJS_API_VCLAIM');
         $response = $this->generalService->apiData($url, $request, $request->method(), $request->header('X-Content-Type'));
 
         return $response;
