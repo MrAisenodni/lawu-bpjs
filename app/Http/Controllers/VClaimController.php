@@ -19,7 +19,11 @@ class VClaimController extends Controller
 
     public function apiData(Request $request)
     {
+<<<<<<< HEAD
         $url = env('BPJS_API_VCLAIM');
+=======
+        $url = str_replace('20', '2.0', str_replace($this->hostName, $this->serviceName, $request->url()));
+>>>>>>> 5596742e942744ddd6da4cc71442310dda2f7801
         $response = $this->generalService->apiData($url, $request, $request->method(), $request->header('X-Content-Type'));
 
         return $response;
