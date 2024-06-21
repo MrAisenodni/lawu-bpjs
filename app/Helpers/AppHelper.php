@@ -47,7 +47,7 @@ class AppHelper {
         $encodedSignature   = base64_encode($signature);
 
         // Membentuk Parameter sebagai url
-        $apiUrl = env('BPJS_API') . $url;
+        $apiUrl = $url;
 
         // Jalankan CURL untuk mendapatkan Response dari BPJS
         $curl = curl_init();

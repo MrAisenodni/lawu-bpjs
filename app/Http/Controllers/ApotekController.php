@@ -19,7 +19,8 @@ class ApotekController extends Controller
 
     public function apiData(Request $request)
     {
-        $url = env('BPJS_API_APOTEK');
+        $serviceName = str_replace('/apotek', '', parse_url($request->url())['path']);
+        $url = env('BPJS_API_APOTEK').$serviceName;
         $response = $this->generalService->apiData($url, $request, $request->method(), $request->header('X-Content-Type'));
 
         return $response;
