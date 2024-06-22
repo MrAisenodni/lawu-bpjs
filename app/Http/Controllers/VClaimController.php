@@ -17,9 +17,15 @@ class VClaimController extends Controller
         $this->generalService   = $generalService;
     }
 
-    public function apiData(Request $request)
+    public function apiData(Request $request, $serviceName)
     {
-        $serviceName = str_replace('/vclaim', '', parse_url($request->url())['path']);
+        // Ubah URL dari 20 ke 2.0
+        $serviceName = str_replace('20', '2.0', $serviceName);
+
+        // Ubah URL dari 10 ke 1.0
+        $serviceName = str_replace('10', '2.0', $serviceName);
+
+        // Mengambil Response dari BPJS
         $url = env('BPJS_API_VCLAIM').$serviceName;
         $response = $this->generalService->apiData($url, $request, $request->method(), $request->header('X-Content-Type'));
 
