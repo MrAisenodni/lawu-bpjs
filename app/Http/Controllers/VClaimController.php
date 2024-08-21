@@ -25,6 +25,9 @@ class VClaimController extends Controller
         // Ubah URL dari 10 ke 1.0
         $serviceName = str_replace('10', '2.0', $serviceName);
 
+        // Ubah URL sesuai ketentuan BPJS
+        $serviceName = str_replace('/vclaim', '', parse_url($request->url())['path']);
+
         // Mengambil Response dari BPJS
         $url = env('BPJS_API_VCLAIM').$serviceName;
         $response = $this->generalService->apiData($url, $request, $request->method(), $request->header('X-Content-Type'));

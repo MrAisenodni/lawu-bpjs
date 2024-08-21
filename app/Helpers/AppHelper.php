@@ -118,6 +118,49 @@ class AppHelper {
         return self::response_json(null, 400, $string);
     }
 
+    public static function get_decrypt_antrean($key, $string)
+    {
+        // Check String
+        if (json_decode($string))
+        {
+            if (strlen(json_decode($string)->metadata->code) > 3) return self::response_json(null, 400, json_decode($string)->metadata->code);
+
+            if (json_decode($string)->metadata->code == 1)
+            {
+                // Declare Variable
+                $encrypt_method = 'AES-256-CBC';
+                $string = json_decode($string)->response;
+    
+                // Hash the Key
+                $key_hash = hex2bin(hash('sha256', $key));
+                $string_hash = base64_decode($string);
+                
+                // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+                $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
+                
+                $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+                
+                // Decompress Using LZ String
+                $data = self::decompress($output);
+                
+                // Create Response
+                $response = [
+                    'key'           => $key,
+                    'data'          => json_decode($data),
+                ];
+                return self::response_json($response, 200, 'OK');
+            }
+
+            // Create Response
+            $response = [
+                'key'           => $key,
+                'data'          => null,
+            ];
+            return self::response_json($response, json_decode($string)->metadata->code, json_decode($string)->metadata->message);
+        }
+        return self::response_json(null, 400, $string);
+    }
+
     // LZ String Decompress
     public static function decompress($string){
         return LZString::decompressFromEncodedURIComponent($string);

@@ -24,11 +24,17 @@ $router->group(['prefix' => 'bpjs'], function () use ($router) {
     $router->get('{serviceName}/{url}/{param}', 'GeneralController@getByParam');
 });
 
-// V-CLaim Routes
+// V-Claim Routes
 $router->get('/vclaim/{serviceName:.*}', 'VClaimController@apiData');
 $router->post('/vclaim/{serviceName:.*}', 'VClaimController@apiData');
 $router->put('/vclaim/{serviceName:.*}', 'VClaimController@apiData');
 $router->delete('/vclaim/{serviceName:.*}', 'VClaimController@apiData');
+
+// Antrean RS Routes
+$router->get('/antreanrs/{serviceName:.*}', 'AntreanRSController@apiData');
+$router->post('/antreanrs/{serviceName:.*}', 'AntreanRSController@apiData');
+$router->put('/antreanrs/{serviceName:.*}', 'AntreanRSController@apiData');
+$router->delete('/antreanrs/{serviceName:.*}', 'AntreanRSController@apiData');
 
 // Apotek Routes
 $router->group(['prefix' => 'apotek'], function () use ($router) {

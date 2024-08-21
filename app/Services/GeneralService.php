@@ -59,7 +59,12 @@ class GeneralService
 
         // Decrypt the Response from BPJS
         $string = $response;
-        $json   = AppHelper::get_decrypt($key, $string);
+        if (explode('/', $url)[3] == 'antreanrs' || explode('/', $url)[3] == 'antrean' || explode('/', $url)[3] == 'antreanrs_dev')
+        {
+            $json   = AppHelper::get_decrypt_antrean($key, $string);
+        } else {
+            $json   = AppHelper::get_decrypt($key, $string);
+        }
 
         return $json;
     }
