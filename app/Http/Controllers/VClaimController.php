@@ -19,14 +19,14 @@ class VClaimController extends Controller
 
     public function apiData(Request $request, $serviceName)
     {
+        // Ubah URL sesuai ketentuan BPJS
+        $serviceName = str_replace('/vclaim', '', parse_url($request->url())['path']);
+
         // Ubah URL dari 20 ke 2.0
         $serviceName = str_replace('20', '2.0', $serviceName);
 
         // Ubah URL dari 10 ke 1.0
         $serviceName = str_replace('10', '2.0', $serviceName);
-
-        // Ubah URL sesuai ketentuan BPJS
-        $serviceName = str_replace('/vclaim', '', parse_url($request->url())['path']);
 
         // Mengambil Response dari BPJS
         $url = env('BPJS_API_VCLAIM').$serviceName;
